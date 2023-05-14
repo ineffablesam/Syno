@@ -152,15 +152,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     suffixIconConstraints: BoxConstraints(
                                       maxHeight: 70.h,
                                     ),
-                                    suffixIcon: Padding(
-                                      padding: EdgeInsets.only(right: 12.w),
-                                      child: CircleAvatar(
-                                        backgroundColor: const Color(0xff2e2e2e)
-                                            .withOpacity(0.4),
-                                        radius: 13.h,
-                                        child: const Icon(
-                                          Icons.close,
-                                          color: Colors.white60,
+                                    suffixIcon: CustomTap(
+                                      onTap: () {
+                                        _urlController.clear();
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(right: 12.w),
+                                        child: CircleAvatar(
+                                          backgroundColor:
+                                              const Color(0xff2e2e2e)
+                                                  .withOpacity(0.4),
+                                          radius: 13.h,
+                                          child: const Icon(
+                                            Icons.close,
+                                            color: Colors.white60,
+                                          ),
                                         ),
                                       ),
                                     ),
