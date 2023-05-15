@@ -246,6 +246,34 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       ),
                                       suffixIcon: Visibility(
                                         visible: !_isTextFieldEmpty,
+                                        replacement: CustomTap(
+                                          onTap: () {
+                                            _getClipboardText();
+                                          },
+                                          child: Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 12.w),
+                                              child: Container(
+                                                width: 70.w,
+                                                height: 30.h,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: const Color(
+                                                            0xff2e2e2e)),
+                                                    color: Color(0xff2e2e2e)
+                                                        .withOpacity(0.4),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r)),
+                                                child: Text(
+                                                  "Paste",
+                                                  style: GoogleFonts.poppins(
+                                                      color:
+                                                          Colors.grey.shade500),
+                                                ),
+                                              )),
+                                        ),
                                         child: CustomTap(
                                           onTap: () {
                                             _urlController.clear();
@@ -267,34 +295,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        replacement: CustomTap(
-                                          onTap: () {
-                                            _getClipboardText();
-                                          },
-                                          child: Padding(
-                                              padding:
-                                                  EdgeInsets.only(right: 12.w),
-                                              child: Container(
-                                                width: 70.w,
-                                                height: 30.h,
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  "Paste",
-                                                  style: GoogleFonts.poppins(
-                                                      color:
-                                                          Colors.grey.shade500),
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: const Color(
-                                                            0xff2e2e2e)),
-                                                    color: Color(0xff2e2e2e)
-                                                        .withOpacity(0.4),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r)),
-                                              )),
                                         ),
                                       ),
                                       hintStyle: const TextStyle(
