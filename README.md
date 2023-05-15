@@ -14,6 +14,7 @@
     <img src="https://i.ibb.co/QrHCr6T/supabase.png" alt="Syno Logo" width="200"  />
     <img src="https://i.ibb.co/Y01y0fc/flutter-logo.png" alt="Flutter Logo" width="200"/>
 </div>
+
 ## 🛠️ Supercharged with 
 
 - Supabase
