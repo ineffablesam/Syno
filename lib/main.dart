@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:syno/widgets/home/home_page.dart';
 import 'package:syno/widgets/splash/splash_page.dart';
+import 'package:toasta/toasta.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,31 +26,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            pageTransitionsTheme: PageTransitionsTheme(
-              builders: {
-                TargetPlatform.android: SharedAxisPageTransitionsBuilder(
-                  transitionType: SharedAxisTransitionType.horizontal,
-                  fillColor: Color(0xff1b1b1b),
-                ),
-              },
+    return ToastaContainer(
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              pageTransitionsTheme: PageTransitionsTheme(
+                builders: {
+                  TargetPlatform.android: SharedAxisPageTransitionsBuilder(
+                    transitionType: SharedAxisTransitionType.horizontal,
+                    fillColor: Color(0xff1b1b1b),
+                  ),
+                },
+              ),
             ),
-          ),
-          routes: {
-            '/': (context) => SplashPage(),
-            '/home': (context) => HomePage(),
-          },
-        );
-      },
+            routes: {
+              '/': (context) => SplashPage(),
+              '/home': (context) => HomePage(),
+            },
+          );
+        },
+      ),
     );
   }
 }

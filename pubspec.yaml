@@ -45,6 +45,13 @@ dependencies:
   animations: ^2.0.7
   page_transition: 2.0.9
   lottie: ^2.3.0
+  receive_intent: ^0.2.3
+  toasta: ^1.0.4
+  app_links: ^3.4.2
+  animated_text_kit: ^4.2.2
+  shared_preferences: ^2.1.1
+  google_fonts: ^4.0.4
+  shimmer_animation: ^2.1.0+1
 
 dev_dependencies:
   flutter_test:
@@ -85,12 +92,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/Gilroy-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Gilroy-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Gilroy-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Gilroy-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Gilroy-Heavy.ttf
+          weight: 800
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

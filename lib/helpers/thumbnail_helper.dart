@@ -4,5 +4,17 @@ String getYoutubeThumbnail(String videoUrl) {
     return '';
   }
 
-  return 'https://img.youtube.com/vi/${uri.queryParameters['v']}/maxresdefault.jpg';
+  String videoId = '';
+
+  if (uri.host == 'www.youtube.com') {
+    videoId = uri.queryParameters['v'] ?? '';
+  } else if (uri.host == 'youtu.be') {
+    videoId = uri.pathSegments.first;
+  }
+
+  if (videoId.isEmpty) {
+    return '';
+  }
+
+  return 'https://img.youtube.com/vi/$videoId/maxresdefault.jpg';
 }
