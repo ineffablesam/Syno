@@ -255,12 +255,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   margin:
                                       EdgeInsets.symmetric(horizontal: 10.w),
                                   decoration: const BoxDecoration(boxShadow: [
-                                    // BoxShadow(
-                                    //   offset: Offset(3, 3),
-                                    //   spreadRadius: -13,
-                                    //   blurRadius: 50,
-                                    //   color: Color.fromRGBO(146, 99, 233, 0.45),
-                                    // )
+                                    BoxShadow(
+                                      offset: Offset(3, 3),
+                                      spreadRadius: -13,
+                                      blurRadius: 50,
+                                      color: Color.fromRGBO(146, 99, 233, 0.45),
+                                    )
                                   ]),
                                   child: TextField(
                                     style: GoogleFonts.poppins(
@@ -366,68 +366,70 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                Shimmer(
-                                  duration: const Duration(
-                                      seconds: 3), //Default value
-                                  interval: const Duration(
-                                      seconds:
-                                          2), //Default value: Duration(seconds: 0)
-                                  color: Colors.white, //Default value
-                                  colorOpacity: 0, //Default value
-                                  enabled: true, //Default value
-                                  direction: const ShimmerDirection
-                                      .fromLTRB(), //Default Valuelue
-                                  child: CustomTap(
-                                    onTap: null,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.r),
-                                      child: Container(
-                                        height: 45.h,
-                                        width: 200.w,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8.r),
-                                            border: Border.all(
-                                                color:
-                                                    const Color(0xff2e2e2e))),
-                                        child: ElevatedButton(
-                                          // onPressed: _getSummary,
-                                          onPressed: () {
-                                            String inputText =
-                                                _urlController.text.trim();
-                                            if (inputText.isNotEmpty) {
-                                              if (inputText.startsWith(
-                                                      'https://www.youtube.com/watch?v=') ||
-                                                  inputText.startsWith(
-                                                      'https://youtu.be/')) {
-                                                _getSummary();
+                                if (_urlController.text.trim().isNotEmpty)
+                                  Shimmer(
+                                    duration: const Duration(
+                                        seconds: 3), //Default value
+                                    interval: const Duration(
+                                        seconds:
+                                            2), //Default value: Duration(seconds: 0)
+                                    color: Colors.white, //Default value
+                                    colorOpacity: 0, //Default value
+                                    enabled: true, //Default value
+                                    direction: const ShimmerDirection
+                                        .fromLTRB(), //Default Valuelue
+                                    child: CustomTap(
+                                      onTap: null,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
+                                        child: Container(
+                                          height: 45.h,
+                                          width: 200.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
+                                              border: Border.all(
+                                                  color:
+                                                      const Color(0xff2e2e2e))),
+                                          child: ElevatedButton(
+                                            // onPressed: _getSummary,
+                                            onPressed: () {
+                                              String inputText =
+                                                  _urlController.text.trim();
+                                              if (inputText.isNotEmpty) {
+                                                if (inputText.startsWith(
+                                                        'https://www.youtube.com/watch?v=') ||
+                                                    inputText.startsWith(
+                                                        'https://youtu.be/')) {
+                                                  _getSummary();
+                                                } else {
+                                                  final toast = Toast(
+                                                    status: ToastStatus.failed,
+                                                    subtitle:
+                                                        "Please enter a valid YouTube link",
+                                                  );
+                                                  Toasta(context).toast(toast);
+                                                }
                                               } else {
                                                 final toast = Toast(
                                                   status: ToastStatus.failed,
                                                   subtitle:
-                                                      "Please enter a valid YouTube link",
+                                                      "Please enter a valid link",
                                                 );
                                                 Toasta(context).toast(toast);
                                               }
-                                            } else {
-                                              final toast = Toast(
-                                                status: ToastStatus.failed,
-                                                subtitle:
-                                                    "Please enter a valid link",
-                                              );
-                                              Toasta(context).toast(toast);
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: const Color(
-                                                0xff2f2f2f33), // Background color
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: const Color(
+                                                  0xff2f2f2f33), // Background color
+                                            ),
+                                            child: const Text('Get Summary ✨'),
                                           ),
-                                          child: const Text('Get Summary ✨'),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
                                 const SizedBox(height: 20),
                                 if (_componentsvisible)
                                   GeneratedContentView(
