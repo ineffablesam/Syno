@@ -12,7 +12,7 @@ class BuildBaseSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350.h,
+      height: 405.h,
       width: double.infinity,
       decoration: BoxDecoration(
           color: const Color(0xff2f2f2f33),
