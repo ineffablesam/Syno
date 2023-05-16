@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GeneratedContentView extends StatelessWidget {
-  const GeneratedContentView({
+  GeneratedContentView({
     super.key,
     required String thumbnailUrl,
     required String elapsedTimeText,
@@ -12,13 +12,15 @@ class GeneratedContentView extends StatelessWidget {
     required String? introduction,
     required List<String>? bulletPoints,
     required String? conclusion,
+    required String duration,
   })  : _thumbnailUrl = thumbnailUrl,
         _elapsedTimeText = elapsedTimeText,
         _title = title,
         _summary = summary,
         _introduction = introduction,
         _bulletPoints = bulletPoints,
-        _conclusion = conclusion;
+        _conclusion = conclusion,
+        _duration = duration;
 
   final String _thumbnailUrl;
   final String _elapsedTimeText;
@@ -27,6 +29,7 @@ class GeneratedContentView extends StatelessWidget {
   final String? _introduction;
   final List<String>? _bulletPoints;
   final String? _conclusion;
+  final String _duration;
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +57,15 @@ class GeneratedContentView extends StatelessWidget {
                     )),
               )
             : Container(),
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
-              child: Row(
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'Time Taken: ',
@@ -69,7 +76,7 @@ class GeneratedContentView extends StatelessWidget {
                         color: const Color(0xff565656)),
                   ),
                   Text(
-                    '$_elapsedTimeText',
+                    _elapsedTimeText,
                     style: TextStyle(
                         fontFamily: "Gilroy",
                         fontWeight: FontWeight.w700,
@@ -78,8 +85,27 @@ class GeneratedContentView extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(Icons.access_time_rounded,
+                      color: Color(0xff565656)),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(
+                    _duration,
+                    style: TextStyle(
+                        fontFamily: "Gilroy",
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13.sp,
+                        color: const Color(0xffe5e5e5)),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -96,7 +122,7 @@ class GeneratedContentView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             'Summary: $_summary'.substring(8),
-            style: GoogleFonts.ibmPlexSans(color: Color(0xc3ffffff)),
+            style: GoogleFonts.ibmPlexSans(color: const Color(0xc3ffffff)),
           ),
         ),
         const SizedBox(height: 10),
@@ -104,7 +130,7 @@ class GeneratedContentView extends StatelessWidget {
           padding: EdgeInsets.all(10.h),
           child: Text('Introduction: $_introduction',
               style: GoogleFonts.ibmPlexSans(
-                color: Color(0xc3ffffff),
+                color: const Color(0xc3ffffff),
               )),
         ),
         const SizedBox(height: 10),
@@ -124,11 +150,13 @@ class GeneratedContentView extends StatelessWidget {
                   leading: Text(
                     "${index + 1}.",
                     style: GoogleFonts.ibmPlexSans(
-                        color: Color(0xc3ffffff), fontWeight: FontWeight.w600),
+                        color: const Color(0xc3ffffff),
+                        fontWeight: FontWeight.w600),
                   ),
                   title: Text(
                     _bulletPoints![index],
-                    style: GoogleFonts.ibmPlexSans(color: Color(0xc3ffffff)),
+                    style:
+                        GoogleFonts.ibmPlexSans(color: const Color(0xc3ffffff)),
                   ),
                 );
               },
