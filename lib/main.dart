@@ -1,21 +1,23 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:syno/widgets/home/home_page.dart';
-import 'package:syno/widgets/splash/splash_page.dart';
 import 'package:toasta/toasta.dart';
+
+import 'core/home/home_page.dart';
+import 'core/splash/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await dotenv.load(fileName: ".env");
   await Supabase.initialize(
     url: "https://sxfxnzlzybpezhehacby.supabase.co",
     anonKey:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4Znhuemx6eWJwZXpoZWhhY2J5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQwNzAxMjgsImV4cCI6MTk5OTY0NjEyOH0.lvpL6ZgIZehai1gdukqWSDh9wbmUlPf84FklCM1zGmk",
   );
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +27,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
     return ToastaContainer(
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: Colors.blue,
-              pageTransitionsTheme: PageTransitionsTheme(
+              pageTransitionsTheme: const PageTransitionsTheme(
                 builders: {
                   TargetPlatform.android: SharedAxisPageTransitionsBuilder(
                     transitionType: SharedAxisTransitionType.horizontal,
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: {
-              '/': (context) => SplashPage(),
+              '/': (context) => const SplashPage(),
               '/home': (context) => HomePage(),
             },
           );

@@ -15,9 +15,13 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:syno/helpers/custom_tap.dart';
 import 'package:toasta/toasta.dart';
 
+import '../../app/constants.dart';
+import '../../helpers/duration_parsers.dart';
 import '../../helpers/thumbnail_helper.dart';
+import '../components/CustomBottomSheet.dart';
 import '../components/animated_text.dart';
 import '../components/custom_app_bar.dart';
+import '../components/generated_content_view.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -70,6 +74,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String? _conclusion = '';
   String _thumbnailUrl = '';
   bool _componentsvisible = false;
+  String _duration = "";
   late AppLinks _appLinks;
   StreamSubscription<Uri>? _linkSubscription;
 
@@ -104,7 +109,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         .select('summary, youtube_url')
         .eq('youtube_url', _urlController.text.trim())
         .execute();
+    String duration =
+        await getVideoDurationFromUrl(_urlController.text.trim(), YT_API_KEY);
 
+    print('Video duration: $duration');
+
+    final durationParts = duration.split(':');
+    if (durationParts.length >= 2) {
+      final minutes = int.tryParse(durationParts[1]);
+      if (minutes != null && minutes >= 10) {
+        print('Error: Video duration is greater than or equal to 10 minutes');
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+    } else {
+      print('Error: Invalid duration format');
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
     if (response.data != null && response.data!.isNotEmpty) {
       print("Found in DB");
       final summaryData = jsonDecode(response.data![0]['summary'] as String);
@@ -133,10 +159,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     // If not in the database, fetch the summary from the API and store it in the database
     print("Not in Db so fetching from Server");
-    const url = 'http://10.0.2.2:8000/summary/';
     final body = json.encode({'youtube_link': _urlController.text.trim()});
     final headers = {'Content-type': 'application/json'};
-    final uri = Uri.parse(url);
+    final uri = Uri.parse(MAIN_BACKEND_URL_DEBUG);
     final apiResponse = await http.post(uri, headers: headers, body: body);
     final summaryString = json.decode(apiResponse.body)['summary'];
     final summaryData = json.decode(summaryString);
@@ -175,7 +200,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     String? clipboardText = clipboardData?.text;
     setState(() {
       _urlController.text = clipboardText ?? "No Text in Clipboard";
-      print(clipboardText);
     });
   }
 
@@ -246,6 +270,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       ),
                                       suffixIcon: Visibility(
                                         visible: !_isTextFieldEmpty,
+                                        //Paste Button for pasting the text from Clipboard
                                         replacement: CustomTap(
                                           onTap: () {
                                             _getClipboardText();
@@ -274,6 +299,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                 ),
                                               )),
                                         ),
+                                        //Clear Button for clearing text field
                                         child: CustomTap(
                                           onTap: () {
                                             _urlController.clear();
@@ -387,122 +413,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 ),
                                 const SizedBox(height: 20),
                                 if (_componentsvisible)
-                                  Column(
-                                    children: [
-                                      _thumbnailUrl != null
-                                          ? CustomTap(
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 7.h,
-                                                    horizontal: 13.h),
-                                                child: Container(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            boxShadow: [
-                                                          BoxShadow(
-                                                            offset:
-                                                                Offset(3, 3),
-                                                            spreadRadius: -13,
-                                                            blurRadius: 50,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    146,
-                                                                    99,
-                                                                    233,
-                                                                    0.45),
-                                                          )
-                                                        ]),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.r),
-                                                      child: Image.network(
-                                                          _thumbnailUrl),
-                                                    )),
-                                              ),
-                                            )
-                                          : Container(),
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'Time Taken: $_elapsedTimeText',
-                                              style: TextStyle(
-                                                  fontFamily: "Gilroy",
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 13.sp,
-                                                  color:
-                                                      const Color(0xff565656)),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'Title: $_title'.substring(7),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 19.sp,
-                                              color: const Color(0xfffbfbfb)),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          'Summary: $_summary'.substring(8),
-                                          style: const TextStyle(
-                                              color: Color(0xc3ffffff)),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Padding(
-                                        padding: EdgeInsets.all(10.h),
-                                        child:
-                                            Text('Introduction: $_introduction',
-                                                style: const TextStyle(
-                                                  color: Color(0xc3ffffff),
-                                                )),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Container(
-                                        padding: EdgeInsets.all(10.h),
-                                        color: const Color(0xdffffff),
-                                        child: MediaQuery.removePadding(
-                                          context: context,
-                                          removeTop: true,
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemCount: _bulletPoints?.length,
-                                            itemBuilder: (context, index) {
-                                              // Use ListTile widgets to display each bullet point as a separate item in the list
-                                              return ListTile(
-                                                leading: const Icon(
-                                                  Icons.arrow_right,
-                                                  color: Color(0xff9263E9),
-                                                ), // Use a bullet point icon
-                                                title: Text(
-                                                  _bulletPoints![index],
-                                                  style: const TextStyle(
-                                                      color: Color(0xc3ffffff)),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        'Conclusion: $_conclusion',
-                                      ),
-                                    ],
-                                  )
+                                  GeneratedContentView(
+                                      thumbnailUrl: _thumbnailUrl,
+                                      elapsedTimeText: _elapsedTimeText,
+                                      title: _title,
+                                      summary: _summary,
+                                      introduction: _introduction,
+                                      bulletPoints: _bulletPoints,
+                                      conclusion: _conclusion)
                                 else
-                                  FadeInUp(child: const _buildBaseSheet())
+                                  FadeInUp(child: const BuildBaseSheet())
                               ],
                             ),
                     ),
@@ -512,148 +432,5 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ],
           )),
     );
-  }
-}
-
-class _buildBaseSheet extends StatelessWidget {
-  const _buildBaseSheet({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 350.h,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: const Color(0xff2f2f2f33),
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.r), topRight: Radius.circular(30.r))),
-      child: RawScrollbar(
-        radius: Radius.circular(10.r),
-        thickness: 2.w,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10.h,
-              ),
-              Container(
-                height: 5.h,
-                width: 80.w,
-                decoration: BoxDecoration(
-                    color: Colors.grey.shade900,
-                    borderRadius: BorderRadius.circular(10.r)),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Super Charged with 🔥",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Row(
-                          children: [
-                            CustomTap(
-                              child: Image.asset(
-                                "assets/images/supabase.png",
-                                width: 100.w,
-                              ),
-                            ),
-                            CustomTap(
-                              child: Image.asset(
-                                "assets/images/flutter-logo.png",
-                                width: 100.w,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Quick Guide",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                      "1. Go to your desirable Youtube video",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white70, fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    const ImageGuide(image: "assets/images/step-1.png"),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                      "2. Click on Share button and Select Syno \n Let the Magic Happen ✨",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white70, fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    const ImageGuide(image: "assets/images/step-2.png"),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ImageGuide extends StatelessWidget {
-  final String image;
-  const ImageGuide({Key? key, required this.image}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(4.h),
-        decoration: BoxDecoration(
-            color: Colors.grey.shade900,
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: const Color(0xff2e2e2e))),
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.r),
-            child: Image.asset(image)));
   }
 }
