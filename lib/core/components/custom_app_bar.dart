@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -32,18 +33,23 @@ class CustomAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 20.h,
+                  height: 30.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 50.h,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(shape: BoxShape.circle),
-                      child: Image.asset(
-                        "assets/images/profile.webp",
-                      ),
+                    // Container(
+                    //   height: 50.h,
+                    //   clipBehavior: Clip.hardEdge,
+                    //   decoration: BoxDecoration(shape: BoxShape.circle),
+                    //   child: Image.asset(
+                    //     "assets/images/profile.webp",
+                    //   ),
+                    // ),
+                    SvgPicture.asset(
+                      'assets/images/logo_main.svg',
+                      height: 30.h,
+                      width: 30.h,
                     ),
                     Icon(
                       Icons.apps,
