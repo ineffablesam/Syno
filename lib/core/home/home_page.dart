@@ -15,7 +15,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:syno/helpers/custom_tap.dart';
 import 'package:toasta/toasta.dart';
 
-import '../../app/constants.dart';
+import '../../app/constants/constants.dart';
 import '../../helpers/duration_parsers.dart';
 import '../../helpers/thumbnail_helper.dart';
 import '../components/CustomBottomSheet.dart';
@@ -112,8 +112,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     String duration =
         await getVideoDurationFromUrl(_urlController.text.trim(), YT_API_KEY);
 
-    print('Video duration: $duration');
-
     final durationParts = duration.split(':');
     if (durationParts.length >= 2) {
       final minutes = int.tryParse(durationParts[1]);
@@ -129,13 +127,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       setState(() {
         _isLoading = false;
       });
+
       return;
     }
     if (response.data != null && response.data!.isNotEmpty) {
       print("Found in DB");
+      String duration =
+          await getVideoDurationFromUrl(_urlController.text.trim(), YT_API_KEY);
+
       final summaryData = jsonDecode(response.data![0]['summary'] as String);
       final thumbnailUrl = await getYoutubeThumbnail(_urlController.text);
       setState(() {
+        _duration = duration;
         _title = summaryData['title'];
         _summary = summaryData['summary'];
         _introduction = summaryData['introduction'];
@@ -175,6 +178,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }).execute();
 
     setState(() {
+      _duration = duration;
       _title = summaryData['title'];
       _summary = summaryData['summary'];
       _introduction = summaryData['introduction'];
@@ -251,12 +255,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   margin:
                                       EdgeInsets.symmetric(horizontal: 10.w),
                                   decoration: const BoxDecoration(boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(3, 3),
-                                      spreadRadius: -13,
-                                      blurRadius: 50,
-                                      color: Color.fromRGBO(146, 99, 233, 0.45),
-                                    )
+                                    // BoxShadow(
+                                    //   offset: Offset(3, 3),
+                                    //   spreadRadius: -13,
+                                    //   blurRadius: 50,
+                                    //   color: Color.fromRGBO(146, 99, 233, 0.45),
+                                    // )
                                   ]),
                                   child: TextField(
                                     style: GoogleFonts.poppins(
@@ -392,12 +396,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             String inputText =
                                                 _urlController.text.trim();
                                             if (inputText.isNotEmpty) {
-                                              _getSummary();
-                                            } else {
-                                              final toast = Toast(
+                                              if (inputText.startsWith(
+                                                      'https://www.youtube.com/watch?v=') ||
+                                                  inputText.startsWith(
+                                                      'https://youtu.be/')) {
+                                                _getSummary();
+                                              } else {
+                                                final toast = Toast(
                                                   status: ToastStatus.failed,
                                                   subtitle:
-                                                      "Please Enter Valid link");
+                                                      "Please enter a valid YouTube link",
+                                                );
+                                                Toasta(context).toast(toast);
+                                              }
+                                            } else {
+                                              final toast = Toast(
+                                                status: ToastStatus.failed,
+                                                subtitle:
+                                                    "Please enter a valid link",
+                                              );
                                               Toasta(context).toast(toast);
                                             }
                                           },
@@ -414,13 +431,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 const SizedBox(height: 20),
                                 if (_componentsvisible)
                                   GeneratedContentView(
-                                      thumbnailUrl: _thumbnailUrl,
-                                      elapsedTimeText: _elapsedTimeText,
-                                      title: _title,
-                                      summary: _summary,
-                                      introduction: _introduction,
-                                      bulletPoints: _bulletPoints,
-                                      conclusion: _conclusion)
+                                    thumbnailUrl: _thumbnailUrl,
+                                    elapsedTimeText: _elapsedTimeText,
+                                    title: _title,
+                                    summary: _summary,
+                                    introduction: _introduction,
+                                    bulletPoints: _bulletPoints,
+                                    conclusion: _conclusion,
+                                    duration: _duration,
+                                  )
                                 else
                                   FadeInUp(child: const BuildBaseSheet())
                               ],
