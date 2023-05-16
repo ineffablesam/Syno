@@ -95,6 +95,99 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     });
   }
 
+  void showDurationErrorDialog(BuildContext context) {
+    showGeneralDialog(
+      context: context,
+      barrierLabel: "Barrier",
+      barrierDismissible: true,
+      pageBuilder: (_, __, ___) {
+        return Material(
+          type: MaterialType.transparency,
+          color: Colors.transparent,
+          child: Center(
+            child: Container(
+              padding: EdgeInsets.all(30.h),
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  color: Color(0xff101010),
+                  borderRadius: BorderRadius.circular(8.r),
+                  border: Border.all(color: const Color(0xff2e2e2e))),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "🕒 Duration Exceeded",
+                    style: GoogleFonts.ibmPlexSans(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 23.sp),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      text:
+                          "Syno restricts the acceptance of videos exceeding a duration of ",
+                      style: GoogleFonts.ibmPlexMono(
+                        color: Colors.grey.shade600,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12.sp,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "10 minutes",
+                          style: GoogleFonts.ibmPlexMono(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                        TextSpan(
+                          text:
+                              " solely for free accounts. As part of our service offering, free account holders are limited to summarise videos that adhere to a maximum duration of 10 minutes.",
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      CustomTap(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.h, horizontal: 14.w),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: const Color(0xff2e2e2e)),
+                                color: const Color(0xff2e2e2e).withOpacity(0.4),
+                                borderRadius: BorderRadius.circular(10.r)),
+                            child: Text(
+                              "Dismiss",
+                              style: GoogleFonts.ibmPlexMono(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15.sp),
+                            ),
+                          )),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future<void> _getSummary() async {
     _startTimer();
     setState(() {
@@ -116,6 +209,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       final minutes = int.tryParse(durationParts[1]);
       if (minutes != null && minutes >= 10) {
         print('Error: Video duration is greater than or equal to 10 minutes');
+        showDurationErrorDialog(context);
         setState(() {
           _isLoading = false;
         });
