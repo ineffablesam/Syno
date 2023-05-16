@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
       scrolledUnderElevation: 3,
       stretch: true,
       centerTitle: false,
-      expandedHeight: 150.h,
+      expandedHeight: 140.h,
       // title:
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
