@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:typewritertext/typewritertext.dart';
 
 class GeneratedContentView extends StatelessWidget {
   GeneratedContentView({
@@ -109,12 +110,15 @@ class GeneratedContentView extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Title: $_title'.substring(7),
-            style: GoogleFonts.ibmPlexSans(
-                fontWeight: FontWeight.w700,
-                fontSize: 19.sp,
-                color: const Color(0xfffbfbfb)),
+          child: TypeWriterText(
+            duration: Duration(milliseconds: 30),
+            text: Text(
+              'Title: $_title'.substring(7),
+              style: GoogleFonts.ibmPlexSans(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 19.sp,
+                  color: const Color(0xfffbfbfb)),
+            ),
           ),
         ),
         const SizedBox(height: 10),
