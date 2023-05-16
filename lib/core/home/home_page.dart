@@ -102,7 +102,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     });
 
     final supabase = Supabase.instance.client;
-
     // Check if the video summary is already in the database
     final response = await supabase
         .from('syno_main')
@@ -228,24 +227,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: _isLoading
                           ? Column(
                               children: [
-                                Lottie.asset(
-                                  'assets/lottie/loader.json',
-                                  controller: _controller,
-                                  height: 100.h,
-                                  onLoaded: (composition) {
-                                    _controller
-                                      ..duration = composition.duration
-                                      ..forward();
-                                    _controller.addStatusListener((status) {
-                                      if (status == AnimationStatus.completed) {
-                                        _controller
-                                          ..reset()
-                                          ..forward();
-                                      }
-                                    });
-                                  },
-                                ),
-                                AnimatedTextList(),
+                                AnimatedLoadingState(),
                               ],
                             )
                           : Column(
@@ -290,8 +272,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                     border: Border.all(
                                                         color: const Color(
                                                             0xff2e2e2e)),
-                                                    color: Color(0xff2e2e2e)
-                                                        .withOpacity(0.4),
+                                                    color:
+                                                        const Color(0xff2e2e2e)
+                                                            .withOpacity(0.4),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10.r)),
