@@ -314,7 +314,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               const CustomAppBar(),
               SliverFillRemaining(
                 child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Padding(
                     padding: EdgeInsets.only(top: 30.h),
                     child: Center(
