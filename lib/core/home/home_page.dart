@@ -19,7 +19,7 @@ import '../../app/constants/constants.dart';
 import '../../helpers/duration_parsers.dart';
 import '../../helpers/thumbnail_helper.dart';
 import '../components/CustomBottomSheet.dart';
-import '../components/animated_text.dart';
+import '../components/animated_loading_state.dart';
 import '../components/custom_app_bar.dart';
 import '../components/generated_content_view.dart';
 
@@ -314,7 +314,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               const CustomAppBar(),
               SliverFillRemaining(
                 child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   child: Padding(
                     padding: EdgeInsets.only(top: 30.h),
                     child: Center(
