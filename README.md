@@ -22,6 +22,11 @@
 - Python
 - ChatGPT API (GPT-3.5-turbo)
 
+## 🛠️ Illustration
+
+![Image](https://i.ibb.co/Bjcw0Lj/iphone-14-4-646683cdcc9e58a2416b6134.png)
+
+![Image](https://i.ibb.co/Ph6bpZx/frame.png)
 
 
 ## How to setup **Syno** backend ?
