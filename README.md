@@ -50,7 +50,7 @@
 3. To run the server go to **server/** folder and then run
 
 ```bash
- python main.py
+ uvicorn main:app --reload
 ```
 
 ## How to setup **Syno** Flutter app ?
