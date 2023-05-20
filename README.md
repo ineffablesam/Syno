@@ -22,6 +22,11 @@
 - Python
 - ChatGPT API (GPT-3.5-turbo)
 
+## 💚 Usage of Supabase
+
+By storing the summary version in the Supabase database, we eliminate the need to repetitively fetch the entire summary for a given URL. Instead, we can quickly retrieve the saved version from the database, which significantly reduces processing time and improves the overall performance of our API.
+
+
 ## 🛠️ Illustration
 
 ![Image](https://i.ibb.co/Bjcw0Lj/iphone-14-4-646683cdcc9e58a2416b6134.png)
