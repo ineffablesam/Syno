@@ -257,7 +257,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     print("Not in Db so fetching from Server");
     final body = json.encode({'youtube_link': _urlController.text.trim()});
     final headers = {'Content-type': 'application/json'};
-    final uri = Uri.parse(MAIN_BACKEND_URL_DEBUG);
+    final uri = Uri.parse(MAIN_BACKEND_URL_PROD);
     final apiResponse = await http.post(uri, headers: headers, body: body);
     final summaryString = json.decode(apiResponse.body)['summary'];
     final summaryData = json.decode(summaryString);

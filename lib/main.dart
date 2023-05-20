@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toasta/toasta.dart';
 
+import 'app/constants/constants.dart';
 import 'core/home/home_page.dart';
 import 'core/splash/splash_page.dart';
 
@@ -12,9 +13,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await Supabase.initialize(
-    url: "https://sxfxnzlzybpezhehacby.supabase.co",
-    anonKey:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4Znhuemx6eWJwZXpoZWhhY2J5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQwNzAxMjgsImV4cCI6MTk5OTY0NjEyOH0.lvpL6ZgIZehai1gdukqWSDh9wbmUlPf84FklCM1zGmk",
+    url: SUPABASE_URL,
+    anonKey: SUPABASE_ANON,
   );
 
   runApp(const MyApp());
