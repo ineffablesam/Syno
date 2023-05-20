@@ -107,9 +107,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: Center(
             child: Container(
               padding: EdgeInsets.all(30.h),
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                  color: Color(0xff101010),
+                  color: const Color(0xff101010),
                   borderRadius: BorderRadius.circular(8.r),
                   border: Border.all(color: const Color(0xff2e2e2e))),
               child: Column(
@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             fontSize: 12.sp,
                           ),
                         ),
-                        TextSpan(
+                        const TextSpan(
                           text:
                               " solely for free accounts. As part of our service offering, free account holders are limited to summarise videos that adhere to a maximum duration of 10 minutes.",
                         ),
@@ -321,7 +321,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: _isLoading
                           ? Column(
                               children: [
-                                AnimatedLoadingState(),
+                                const AnimatedLoadingState(),
                               ],
                             )
                           : Column(
