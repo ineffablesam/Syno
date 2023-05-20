@@ -27,9 +27,8 @@
 By storing the summary version in the Supabase database, we eliminate the need to repetitively fetch the entire summary for a given URL. Instead, we can quickly retrieve the saved version from the database, which significantly reduces processing time and improves the overall performance of our API.
 
 
-## Short Demo 😃
-
-![](https://github.com/ineffablesam/Syno/blob/main/screenshots/short-intro.gif)
+## Short Demo Video 🎥
+[![Watch the video](https://i.ibb.co/BfrqhLF/snap-min.png)](https://www.youtube.com/watch?v=fkdKw75G6i4)
 
 ## 🛠️ Illustration
 
