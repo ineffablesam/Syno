@@ -1,7 +1,17 @@
 
-![Logo](https://i.ibb.co/qBV9ZbV/banner-min.png)
+
+<p align="center">
+  <img src="https://i.ibb.co/qBV9ZbV/banner-min.png" alt="Banner-Syno"  height="290"/>
+  <h1 align="center"><strong>Syno Flutter Summarizer App</strong></h1>
+  <div align="center">
+    <img src="https://i.ibb.co/QrHCr6T/supabase.png" alt="Syno Logo" width="200"  />
+    <img src="https://i.ibb.co/Y01y0fc/flutter-logo.png" alt="Flutter Logo" width="200"/>
+</div>
+</p>
 
 
+<br/>
+<br/> 
 
 # 👾 Syno - AI Youtube Summarizer
 
@@ -10,10 +20,6 @@
 
 **Built for Supabase's Flutter Hackathon 2023**
 
-<div align="left">
-    <img src="https://i.ibb.co/QrHCr6T/supabase.png" alt="Syno Logo" width="200"  />
-    <img src="https://i.ibb.co/Y01y0fc/flutter-logo.png" alt="Flutter Logo" width="200"/>
-</div>
 
 ## 🛠️ Supercharged with 
 
@@ -28,6 +34,7 @@ By storing the summary version in the Supabase database, we eliminate the need t
 
 
 ## Short Demo Video 🎥
+  <a href="https://www.youtube.com/watch?v=fkdKw75G6i4">View Demo Video</a><br/><br/>
 [![Watch the video](https://i.ibb.co/BfrqhLF/snap-min.png)](https://www.youtube.com/watch?v=fkdKw75G6i4)
 
 ## 🛠️ Illustration
