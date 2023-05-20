@@ -26,6 +26,10 @@ class SummaryRequest(BaseModel):
 class SummaryResponse(BaseModel):
     summary: str
 #[Routes]
+@app.get("/")
+def read_root():
+    return "Hello! Welcome to the Syno API. --Built by @Samuelphilip"
+
 @app.post("/summary/")
 async def summarize_youtube_video(request: SummaryRequest):
     youtube_link = request.youtube_link
