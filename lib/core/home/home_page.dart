@@ -320,8 +320,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: Center(
                       child: _isLoading
                           ? Column(
-                              children: [
-                                const AnimatedLoadingState(),
+                              children: const [
+                                AnimatedLoadingState(),
                               ],
                             )
                           : Column(
