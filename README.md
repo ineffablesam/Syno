@@ -1,29 +1,26 @@
-
-
 <p align="center">
   <img src="https://i.ibb.co/qBV9ZbV/banner-min.png" alt="Banner-Syno"  height="290"/></p>
   <h1 align="center"><strong>Syno Flutter Summarizer App</strong></h1>
   <div align="center">
     <img src="https://i.ibb.co/QrHCr6T/supabase.png" alt="Syno Logo" width="200"  />
     <img src="https://i.ibb.co/Y01y0fc/flutter-logo.png" alt="Flutter Logo" width="200"/>
+  
 </div>
-
+</p>
 
 <br/>
-<br/> 
+<br/>
 
 # 👾 Syno - AI Youtube Summarizer
 
 🚀 Introducing **Syno**, the game-changing YouTube summarizer app! ✨ Designed using Flutter and backed by the powerful GPT-3.5-turbo API, Syno is here to transform the way you consume video content. Say goodbye to lengthy videos and hello to concise, accurate summaries that capture the essence of each video. Experience the future of video summarization with Syno🎉
 
-
 **Built for Supabase's Flutter Hackathon 2023**
 
-
-## 🛠️ Supercharged with 
+## 🛠️ Supercharged with
 
 - Supabase
-- Flutter 
+- Flutter
 - Python
 - ChatGPT API (GPT-3.5-turbo)
 
@@ -31,9 +28,10 @@
 
 By storing the summary version in the Supabase database, we eliminate the need to repetitively fetch the entire summary for a given URL. Instead, we can quickly retrieve the saved version from the database, which significantly reduces processing time and improves the overall performance of our API.
 
-
 ## Short Demo Video 🎥
-  <a href="https://www.youtube.com/watch?v=fkdKw75G6i4">View Demo Video</a><br/><br/>
+
+<a href="https://www.youtube.com/watch?v=fkdKw75G6i4">View Demo Video</a><br/><br/>
+<a href="https://drive.google.com/file/d/1_bunc1P7gd_JX41mIzovi6c_xieIUj-n/view?usp=sharing">APK Download Link</a><br/><br/>
 [![Watch the video](https://i.ibb.co/BfrqhLF/snap-min.png)](https://www.youtube.com/watch?v=fkdKw75G6i4)
 
 ## 🛠️ Illustration
@@ -41,7 +39,6 @@ By storing the summary version in the Supabase database, we eliminate the need t
 ![Image](https://i.ibb.co/Bjcw0Lj/iphone-14-4-646683cdcc9e58a2416b6134.png)
 
 ![Image](https://i.ibb.co/Ph6bpZx/frame.png)
-
 
 ## How to setup **Syno** backend ?
 
@@ -51,7 +48,7 @@ By storing the summary version in the Supabase database, we eliminate the need t
  git clone https://github.com/ineffablesam/Syno
 ```
 
-2. First need to install the python dependencies prior running the server  
+2. First need to install the python dependencies prior running the server
 
 ```bash
  cd server
@@ -82,10 +79,7 @@ By storing the summary version in the Supabase database, we eliminate the need t
 
 - Add Supabase magic login
 
-   ...
-
-
-
+  ...
 
 ## API Reference
 
@@ -94,11 +88,12 @@ By storing the summary version in the Supabase database, we eliminate the need t
 ```http
   POST /summary/
 ```
+
 Json **POST** Body
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `youtube_link` | `string` | **Required** I  A youtube link |
+| Parameter      | Type     | Description                   |
+| :------------- | :------- | :---------------------------- |
+| `youtube_link` | `string` | **Required** I A youtube link |
 
 #### JSON Body Example
 
@@ -107,7 +102,6 @@ Json **POST** Body
     "youtube_link": "https://www.youtube.com/watch?v=QpBTM0GO6xI"
   }
 ```
-
 
 Takes youtube link as paramater and returns the summary.
 
@@ -128,14 +122,13 @@ Takes youtube link as paramater and returns the summary.
 }
 
 ```
+
 ## 🧑🏻‍💻 Team
- - [Samuel Philip](https://github.com/ineffablesam)
 
+- [Samuel Philip](https://github.com/ineffablesam)
 
+## 🔗 Social Links
 
-## 🔗 Social Links 
- - [Twitter](https://twitter.com/samuelP09301972)
- - [Instagram](https://www.instagram.com/ig_samuelsam/)
- - [Github](https://github.com/ineffablesam/)
-
-
+- [Twitter](https://twitter.com/samuelP09301972)
+- [Instagram](https://www.instagram.com/ig_samuelsam/)
+- [Github](https://github.com/ineffablesam/)
