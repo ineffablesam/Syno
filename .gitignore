@@ -39,6 +39,7 @@ migrate_working_dir/
 /macos
 .env
 
+
 # Symbolication related
 app.*.symbols
 
