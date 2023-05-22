@@ -6,6 +6,10 @@
     <img src="https://i.ibb.co/Y01y0fc/flutter-logo.png" alt="Flutter Logo" width="200"/>
   
 </div>
+<br/>
+<p align="center">
+  <a href="https://syno.vercel.app/">Syno Demo Website</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://drive.google.com/file/d/1N3LdLFyIOFZJ4yzM2aPOWlGFbw7B2w-l/view?usp=sharing">Demo APK Download Link</a>
 </p>
 
 <br/>
@@ -30,9 +34,14 @@ By storing the summary version in the Supabase database, we eliminate the need t
 
 ## Short Demo Video 🎥
 
-<a href="https://www.youtube.com/watch?v=fkdKw75G6i4">View Demo Video</a><br/><br/>
-<a href="https://drive.google.com/file/d/1_bunc1P7gd_JX41mIzovi6c_xieIUj-n/view?usp=sharing">APK Download Link</a><br/><br/>
+<a href="https://www.youtube.com/watch?v=fkdKw75G6i4">View Mobile Demo Video</a><br/><br/>
+<a href="https://youtu.be/OnuYKlY2e7k">View Web Demo Video</a><br/><br/>
+<br/>
+## 🛠️ Mobile Demo
 [![Watch the video](https://i.ibb.co/BfrqhLF/snap-min.png)](https://www.youtube.com/watch?v=fkdKw75G6i4)
+<br/>
+## 🛠️ Web Demo
+[![Watch the video](https://i.ibb.co/yg15nvH/snap-min-2.png)](https://youtu.be/OnuYKlY2e7k)
 
 ## 🛠️ Illustration
 
