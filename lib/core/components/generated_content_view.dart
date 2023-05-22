@@ -1,6 +1,3 @@
-import 'dart:html';
-import 'dart:ui' as ui;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -201,10 +198,10 @@ class MyImage extends StatelessWidget {
   Widget build(BuildContext context) {
     String imageUrl = url;
     // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(
-      imageUrl,
-      (int _) => ImageElement()..src = imageUrl,
-    );
+    // ui.platformViewRegistry.registerViewFactory(
+    //   imageUrl,
+    //   (int _) => ImageElement()..src = imageUrl,
+    // );
     return Container(
       height: 600.h,
       width: 1080.h,

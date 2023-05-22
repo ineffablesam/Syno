@@ -6,7 +6,7 @@
     <img src="https://i.ibb.co/Y01y0fc/flutter-logo.png" alt="Flutter Logo" width="200"/>
   
 </div>
-</p>
+
 
 <br/>
 <br/>
