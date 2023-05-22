@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +13,7 @@ class BuildBaseSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 405.h,
+      height: (kIsWeb) ? 445.h : 405.h,
       width: double.infinity,
       decoration: BoxDecoration(
           color: const Color(0xff2f2f2f33),

@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
         () => Navigator.push(
               context,
               PageTransition(
-                type: PageTransitionType.theme,
+                type: PageTransitionType.fade,
                 opaque: true,
                 duration: const Duration(milliseconds: 800),
                 child: HomePage(),

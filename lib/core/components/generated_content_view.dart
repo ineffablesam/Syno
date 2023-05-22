@@ -39,6 +39,8 @@ class GeneratedContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics:
+          kIsWeb ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
       child: Column(
         children: [
           _thumbnailUrl != null

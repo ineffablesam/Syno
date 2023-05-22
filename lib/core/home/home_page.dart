@@ -20,6 +20,7 @@ import '../../app/constants/constants.dart';
 import '../../helpers/duration_parsers.dart';
 import '../../helpers/thumbnail_helper.dart';
 import '../components/CustomBottomSheet.dart';
+import '../components/WebgeneratedContent.dart';
 import '../components/animated_loading_state.dart';
 import '../components/custom_app_bar.dart';
 import '../components/custom_web_sidebar.dart';
@@ -246,6 +247,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         _thumbnailUrl = thumbnailUrl;
         _componentsvisible = true;
         _isLoading = false;
+
         _timer.cancel();
       });
       _timer.cancel(); // Stop the timer
@@ -287,6 +289,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       _thumbnailUrl = thumbnailUrl;
       _componentsvisible = true;
       _isLoading = false;
+
       _timer.cancel();
     });
     _timer.cancel(); // Stop the timer
@@ -541,16 +544,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         ),
                                       const SizedBox(height: 20),
                                       if (_componentsvisible)
-                                        GeneratedContentView(
-                                          thumbnailUrl: _thumbnailUrl,
-                                          elapsedTimeText: _elapsedTimeText,
-                                          title: _title,
-                                          summary: _summary,
-                                          introduction: _introduction,
-                                          bulletPoints: _bulletPoints,
-                                          conclusion: _conclusion,
-                                          duration: _duration,
-                                        )
+                                        if (kIsWeb)
+                                          WebGeneratedContentView(
+                                            thumbnailUrl: _thumbnailUrl,
+                                            elapsedTimeText: _elapsedTimeText,
+                                            title: _title,
+                                            summary: _summary,
+                                            introduction: _introduction,
+                                            bulletPoints: _bulletPoints,
+                                            conclusion: _conclusion,
+                                            duration: _duration,
+                                            videourl: _urlController.text,
+                                          )
+                                        else
+                                          GeneratedContentView(
+                                            thumbnailUrl: _thumbnailUrl,
+                                            elapsedTimeText: _elapsedTimeText,
+                                            title: _title,
+                                            summary: _summary,
+                                            introduction: _introduction,
+                                            bulletPoints: _bulletPoints,
+                                            conclusion: _conclusion,
+                                            duration: _duration,
+                                          )
                                       else
                                         FadeInUp(child: const BuildBaseSheet())
                                     ],
