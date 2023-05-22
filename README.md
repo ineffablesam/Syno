@@ -29,9 +29,14 @@
 - ChatGPT API (GPT-3.5-turbo)
 
 ## 💚 Usage of Supabase
-
+## Database
 By storing the summary version in the Supabase database, we eliminate the need to repetitively fetch the entire summary for a given URL. Instead, we can quickly retrieve the saved version from the database, which significantly reduces processing time and improves the overall performance of our API.
 
+<br/>
+Make sure you create the Supabase DB and assign the RLS Policies as represented in the below pictures
+
+[![image](https://i.ibb.co/7Cgjzpq/2023-05-23-02-09-35.png)]
+[![image](https://i.ibb.co/c1VgkbG/2023-05-23-02-09-13.png)]
 ## Short Demo Video 🎥
 
 <a href="https://www.youtube.com/watch?v=fkdKw75G6i4">View Mobile Demo Video</a><br/><br/>
