@@ -22,6 +22,7 @@ class BuildBaseSheet extends StatelessWidget {
         radius: Radius.circular(10.r),
         thickness: 2.w,
         child: SingleChildScrollView(
+          primary: true,
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
@@ -61,13 +62,13 @@ class BuildBaseSheet extends StatelessWidget {
                             CustomTap(
                               child: Image.asset(
                                 "assets/images/supabase.png",
-                                width: 100.w,
+                                width: 100.h,
                               ),
                             ),
                             CustomTap(
                               child: Image.asset(
                                 "assets/images/flutter-logo.png",
-                                width: 100.w,
+                                width: 100.h,
                               ),
                             ),
                           ],

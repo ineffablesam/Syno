@@ -1,3 +1,7 @@
+import 'dart:html';
+import 'dart:ui' as ui;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,7 +60,12 @@ class GeneratedContentView extends StatelessWidget {
                           border: Border.all(color: const Color(0xff2e2e2e))),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.r),
-                        child: Image.network(_thumbnailUrl),
+                        // child:
+                        child: kIsWeb
+                            ? MyImage(
+                                url: _thumbnailUrl,
+                              )
+                            : Image.network(_thumbnailUrl),
                       )),
                 )
               : Container(),
@@ -174,6 +183,31 @@ class GeneratedContentView extends StatelessWidget {
             'Conclusion: $_conclusion',
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MyImage extends StatelessWidget {
+  const MyImage({
+    super.key,
+    required this.url,
+  });
+
+  final String url;
+  @override
+  Widget build(BuildContext context) {
+    String imageUrl = url;
+    // ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+      imageUrl,
+      (int _) => ImageElement()..src = imageUrl,
+    );
+    return Container(
+      height: 600.h,
+      width: 1080.h,
+      child: HtmlElementView(
+        viewType: imageUrl,
       ),
     );
   }

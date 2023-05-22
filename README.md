@@ -1,13 +1,12 @@
 
 
 <p align="center">
-  <img src="https://i.ibb.co/qBV9ZbV/banner-min.png" alt="Banner-Syno"  height="290"/>
+  <img src="https://i.ibb.co/qBV9ZbV/banner-min.png" alt="Banner-Syno"  height="290"/></p>
   <h1 align="center"><strong>Syno Flutter Summarizer App</strong></h1>
   <div align="center">
     <img src="https://i.ibb.co/QrHCr6T/supabase.png" alt="Syno Logo" width="200"  />
     <img src="https://i.ibb.co/Y01y0fc/flutter-logo.png" alt="Flutter Logo" width="200"/>
 </div>
-</p>
 
 
 <br/>

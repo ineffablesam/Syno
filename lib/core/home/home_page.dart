@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:app_links/app_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Intent;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,9 @@ import '../../helpers/thumbnail_helper.dart';
 import '../components/CustomBottomSheet.dart';
 import '../components/animated_loading_state.dart';
 import '../components/custom_app_bar.dart';
+import '../components/custom_web_sidebar.dart';
 import '../components/generated_content_view.dart';
+import '../components/web_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -156,6 +159,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       CustomTap(
                           onTap: () {
@@ -309,225 +313,255 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       },
       child: Scaffold(
           backgroundColor: const Color(0xff0b0b0d),
-          body: CustomScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            slivers: [
-              const CustomAppBar(),
-              SliverFillRemaining(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 30.h),
-                    child: Center(
-                      child: _isLoading
-                          ? Column(
-                              children: const [
-                                AnimatedLoadingState(),
-                              ],
-                            )
-                          : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 10.w),
-                                  decoration: const BoxDecoration(boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(3, 3),
-                                      spreadRadius: -13,
-                                      blurRadius: 50,
-                                      color: Color.fromRGBO(146, 99, 233, 0.45),
-                                    )
-                                  ]),
-                                  child: TextField(
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w200,
-                                        color: Colors.white),
-                                    controller: _urlController,
-                                    decoration: InputDecoration(
-                                      hintText: 'Paste Link to Summarise',
-                                      suffixIconConstraints: BoxConstraints(
-                                        maxHeight: 70.h,
-                                      ),
-                                      suffixIcon: Visibility(
-                                        visible: !_isTextFieldEmpty,
-                                        //Paste Button for pasting the text from Clipboard
-                                        replacement: CustomTap(
-                                          onTap: () {
-                                            _getClipboardText();
-                                          },
-                                          child: Padding(
-                                              padding:
-                                                  EdgeInsets.only(right: 12.w),
-                                              child: Container(
-                                                width: 70.w,
-                                                height: 30.h,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: const Color(
-                                                            0xff2e2e2e)),
-                                                    color:
+          body: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              kIsWeb ? const WebSideBar() : Container(),
+              Expanded(
+                flex: 2,
+                child: CustomScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  slivers: [
+                    kIsWeb ? const WebCustomAppBar() : const CustomAppBar(),
+                    SliverFillRemaining(
+                      child: SingleChildScrollView(
+                        physics: _componentsvisible
+                            ? const BouncingScrollPhysics()
+                            : const NeverScrollableScrollPhysics(),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 30.h),
+                          child: Center(
+                            child: _isLoading
+                                ? const Column(
+                                    children: [
+                                      AnimatedLoadingState(),
+                                    ],
+                                  )
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10.w),
+                                        decoration:
+                                            const BoxDecoration(boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(3, 3),
+                                            spreadRadius: -13,
+                                            blurRadius: 50,
+                                            color: Color.fromRGBO(
+                                                146, 99, 233, 0.45),
+                                          )
+                                        ]),
+                                        child: TextField(
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w200,
+                                              color: Colors.white),
+                                          controller: _urlController,
+                                          decoration: InputDecoration(
+                                            hintText: 'Paste Link to Summarise',
+                                            suffixIconConstraints:
+                                                BoxConstraints(
+                                              maxHeight: 70.h,
+                                            ),
+                                            suffixIcon: Visibility(
+                                              visible: !_isTextFieldEmpty,
+                                              //Paste Button for pasting the text from Clipboard
+                                              replacement: CustomTap(
+                                                onTap: () {
+                                                  _getClipboardText();
+                                                },
+                                                child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 12.w),
+                                                    child: Container(
+                                                      width: 70.h,
+                                                      height: 30.h,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: const Color(
+                                                                  0xff2e2e2e)),
+                                                          color: const Color(
+                                                                  0xff2e2e2e)
+                                                              .withOpacity(0.4),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.r)),
+                                                      child: Text(
+                                                        "Paste",
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade500),
+                                                      ),
+                                                    )),
+                                              ),
+                                              //Clear Button for clearing text field
+                                              child: CustomTap(
+                                                onTap: () {
+                                                  _urlController.clear();
+                                                  setState(() {
+                                                    _componentsvisible = false;
+                                                  });
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 12.w),
+                                                  child: CircleAvatar(
+                                                    backgroundColor:
                                                         const Color(0xff2e2e2e)
                                                             .withOpacity(0.4),
+                                                    radius: 13.h,
+                                                    child: const Icon(
+                                                      Icons.close,
+                                                      color: Colors.white60,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            hintStyle: const TextStyle(
+                                                color: Color(0xffbcb9b9)),
+                                            prefixIcon: Lottie.asset(
+                                              'assets/lottie/Link.json',
+                                              controller: _controller,
+                                              height: 10.h,
+                                              onLoaded: (composition) {
+                                                _controller
+                                                  ..duration =
+                                                      composition.duration
+                                                  ..forward();
+                                                _controller.addStatusListener(
+                                                    (status) {
+                                                  if (status ==
+                                                      AnimationStatus
+                                                          .completed) {
+                                                    _controller
+                                                      ..reset()
+                                                      ..forward();
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                            filled: true,
+                                            fillColor: const Color(0xD3181818),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(7.r),
+                                              borderSide: const BorderSide(
+                                                  width: 1,
+                                                  color: Color(0xff2e2e2e)),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(7.r),
+                                              borderSide: const BorderSide(
+                                                  width: 1,
+                                                  color: Color(0xff9263E9)),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      if (_urlController.text.trim().isNotEmpty)
+                                        Shimmer(
+                                          duration: const Duration(
+                                              seconds: 3), //Default value
+                                          interval: const Duration(
+                                              seconds:
+                                                  2), //Default value: Duration(seconds: 0)
+                                          color: Colors.white, //Default value
+                                          colorOpacity: 0, //Default value
+                                          enabled: true, //Default value
+                                          direction: const ShimmerDirection
+                                              .fromLTRB(), //Default Valuelue
+                                          child: CustomTap(
+                                            onTap: null,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
+                                              child: Container(
+                                                height: 45.h,
+                                                width: 200.w,
+                                                decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            10.r)),
-                                                child: Text(
-                                                  "Paste",
-                                                  style: GoogleFonts.poppins(
-                                                      color:
-                                                          Colors.grey.shade500),
+                                                            8.r),
+                                                    border: Border.all(
+                                                        color: const Color(
+                                                            0xff2e2e2e))),
+                                                child: ElevatedButton(
+                                                  // onPressed: _getSummary,
+                                                  onPressed: () {
+                                                    String inputText =
+                                                        _urlController.text
+                                                            .trim();
+                                                    if (inputText.isNotEmpty) {
+                                                      if (inputText.startsWith(
+                                                              'https://www.youtube.com/watch?v=') ||
+                                                          inputText.startsWith(
+                                                              'https://youtu.be/')) {
+                                                        _getSummary();
+                                                      } else {
+                                                        final toast = Toast(
+                                                          status: ToastStatus
+                                                              .failed,
+                                                          subtitle:
+                                                              "Please enter a valid YouTube link",
+                                                        );
+                                                        Toasta(context)
+                                                            .toast(toast);
+                                                      }
+                                                    } else {
+                                                      final toast = Toast(
+                                                        status:
+                                                            ToastStatus.failed,
+                                                        subtitle:
+                                                            "Please enter a valid link",
+                                                      );
+                                                      Toasta(context)
+                                                          .toast(toast);
+                                                    }
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor: const Color(
+                                                        0xff2f2f2f33), // Background color
+                                                  ),
+                                                  child: const Text(
+                                                      'Get Summary ✨'),
                                                 ),
-                                              )),
-                                        ),
-                                        //Clear Button for clearing text field
-                                        child: CustomTap(
-                                          onTap: () {
-                                            _urlController.clear();
-                                            setState(() {
-                                              _componentsvisible = false;
-                                            });
-                                          },
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 12.w),
-                                            child: CircleAvatar(
-                                              backgroundColor:
-                                                  const Color(0xff2e2e2e)
-                                                      .withOpacity(0.4),
-                                              radius: 13.h,
-                                              child: const Icon(
-                                                Icons.close,
-                                                color: Colors.white60,
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      hintStyle: const TextStyle(
-                                          color: Color(0xffbcb9b9)),
-                                      prefixIcon: Lottie.asset(
-                                        'assets/lottie/Link.json',
-                                        controller: _controller,
-                                        height: 10.h,
-                                        onLoaded: (composition) {
-                                          _controller
-                                            ..duration = composition.duration
-                                            ..forward();
-                                          _controller
-                                              .addStatusListener((status) {
-                                            if (status ==
-                                                AnimationStatus.completed) {
-                                              _controller
-                                                ..reset()
-                                                ..forward();
-                                            }
-                                          });
-                                        },
-                                      ),
-                                      filled: true,
-                                      fillColor: const Color(0xD3181818),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.r),
-                                        borderSide: const BorderSide(
-                                            width: 1, color: Color(0xff2e2e2e)),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.r),
-                                        borderSide: const BorderSide(
-                                            width: 1, color: Color(0xff9263E9)),
-                                      ),
-                                    ),
+                                      const SizedBox(height: 20),
+                                      if (_componentsvisible)
+                                        GeneratedContentView(
+                                          thumbnailUrl: _thumbnailUrl,
+                                          elapsedTimeText: _elapsedTimeText,
+                                          title: _title,
+                                          summary: _summary,
+                                          introduction: _introduction,
+                                          bulletPoints: _bulletPoints,
+                                          conclusion: _conclusion,
+                                          duration: _duration,
+                                        )
+                                      else
+                                        FadeInUp(child: const BuildBaseSheet())
+                                    ],
                                   ),
-                                ),
-                                const SizedBox(height: 20),
-                                if (_urlController.text.trim().isNotEmpty)
-                                  Shimmer(
-                                    duration: const Duration(
-                                        seconds: 3), //Default value
-                                    interval: const Duration(
-                                        seconds:
-                                            2), //Default value: Duration(seconds: 0)
-                                    color: Colors.white, //Default value
-                                    colorOpacity: 0, //Default value
-                                    enabled: true, //Default value
-                                    direction: const ShimmerDirection
-                                        .fromLTRB(), //Default Valuelue
-                                    child: CustomTap(
-                                      onTap: null,
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.r),
-                                        child: Container(
-                                          height: 45.h,
-                                          width: 200.w,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.r),
-                                              border: Border.all(
-                                                  color:
-                                                      const Color(0xff2e2e2e))),
-                                          child: ElevatedButton(
-                                            // onPressed: _getSummary,
-                                            onPressed: () {
-                                              String inputText =
-                                                  _urlController.text.trim();
-                                              if (inputText.isNotEmpty) {
-                                                if (inputText.startsWith(
-                                                        'https://www.youtube.com/watch?v=') ||
-                                                    inputText.startsWith(
-                                                        'https://youtu.be/')) {
-                                                  _getSummary();
-                                                } else {
-                                                  final toast = Toast(
-                                                    status: ToastStatus.failed,
-                                                    subtitle:
-                                                        "Please enter a valid YouTube link",
-                                                  );
-                                                  Toasta(context).toast(toast);
-                                                }
-                                              } else {
-                                                final toast = Toast(
-                                                  status: ToastStatus.failed,
-                                                  subtitle:
-                                                      "Please enter a valid link",
-                                                );
-                                                Toasta(context).toast(toast);
-                                              }
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color(
-                                                  0xff2f2f2f33), // Background color
-                                            ),
-                                            child: const Text('Get Summary ✨'),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                const SizedBox(height: 20),
-                                if (_componentsvisible)
-                                  GeneratedContentView(
-                                    thumbnailUrl: _thumbnailUrl,
-                                    elapsedTimeText: _elapsedTimeText,
-                                    title: _title,
-                                    summary: _summary,
-                                    introduction: _introduction,
-                                    bulletPoints: _bulletPoints,
-                                    conclusion: _conclusion,
-                                    duration: _duration,
-                                  )
-                                else
-                                  FadeInUp(child: const BuildBaseSheet())
-                              ],
-                            ),
-                    ),
-                  ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-              )
+              ),
             ],
           )),
     );
