@@ -37,10 +37,10 @@ By storing the summary version in the Supabase database, we eliminate the need t
 <a href="https://www.youtube.com/watch?v=fkdKw75G6i4">View Mobile Demo Video</a><br/><br/>
 <a href="https://youtu.be/OnuYKlY2e7k">View Web Demo Video</a><br/><br/>
 <br/>
-## 🛠️ Mobile Demo
+## 📱 Mobile Demo
 [![Watch the video](https://i.ibb.co/BfrqhLF/snap-min.png)](https://www.youtube.com/watch?v=fkdKw75G6i4)
 <br/>
-## 🛠️ Web Demo
+## 🌐 Web Demo
 [![Watch the video](https://i.ibb.co/yg15nvH/snap-min-2.png)](https://youtu.be/OnuYKlY2e7k)
 
 ## 🛠️ Illustration
