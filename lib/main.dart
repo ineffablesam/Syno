@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +12,15 @@ import 'core/splash/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+
+  await (() async {
+    if (kIsWeb) {
+      await dotenv.load(fileName: "env");
+    } else {
+      await dotenv.load(fileName: ".env");
+    }
+  })();
+
   await Supabase.initialize(
     url: SUPABASE_URL,
     anonKey: SUPABASE_ANON,
