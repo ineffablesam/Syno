@@ -1,0 +1,7 @@
+API_URL=http://syno-web-services-main.onrender.com/summary/
+API_URL_DEBUG=http://10.0.2.2:8000/summary/
+YT_API_KEY=AIzaSyDW5YY-TJjvrnw_CZMj-XI3JvP_7g19nfA
+
+
+SUPABASE_URL=https://sxfxnzlzybpezhehacby.supabase.co
+SUPABASE_ANON=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4Znhuemx6eWJwZXpoZWhhY2J5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQwNzAxMjgsImV4cCI6MTk5OTY0NjEyOH0.lvpL6ZgIZehai1gdukqWSDh9wbmUlPf84FklCM1zGmk
